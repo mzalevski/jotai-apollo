@@ -1,23 +1,24 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
 import { HomePage } from "./components/home-page";
 import { OtherPage } from "./components/other-page";
-import { Wrapper } from "./components/wrapper";
+import { Suspense } from "react";
+import { useAtom } from "jotai";
+import { clientAtom } from "./atoms";
 
-const client = new ApolloClient({
-  uri: "https://countries.trevorblades.com",
-  cache: new InMemoryCache(),
-});
+export const App = () => {
+  const [client] = useAtom(clientAtom);
 
-export const App = () => (
-  <ApolloProvider client={client}>
-    <BrowserRouter>
-      <Wrapper>
-        <Routes>
-          <Route index element={<HomePage />} />
-          <Route path="other" element={<OtherPage />} />
-        </Routes>
-      </Wrapper>
-    </BrowserRouter>
-  </ApolloProvider>
-);
+  return (
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <Suspense fallback="loading...">
+          <Routes>
+            <Route index element={<HomePage />} />
+            <Route path="other" element={<OtherPage />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    </ApolloProvider>
+  );
+};
