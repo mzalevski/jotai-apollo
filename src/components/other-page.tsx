@@ -7,10 +7,10 @@ export const OtherPage = () => {
 
   return (
     <div>
-      other - {currentCountry?.code}
+      other - {currentCountry.code}
       <br />
       <br />
-      <Link to={"/"}>home</Link>
+      <Link to="/">home</Link>
     </div>
   );
 };

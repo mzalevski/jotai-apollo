@@ -7,10 +7,10 @@ export const HomePage = () => {
 
   return (
     <div>
-      home - {currentCountry?.code}
+      home - {currentCountry.code}
       <br />
       <br />
-      <Link to={"/other"}>other</Link>
+      <Link to="/other">other</Link>
     </div>
   );
 };
